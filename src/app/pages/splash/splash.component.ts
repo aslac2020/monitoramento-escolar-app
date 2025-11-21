@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
+import { NgZone } from '@angular/core';
+
 
 @Component({
   selector: 'app-splash',
@@ -7,9 +10,50 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SplashComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private router: Router, private ngZone: NgZone) {
   }
 
+  ngOnInit(): void {
+    const synth = (window as any).speechSynthesis;
+
+    // Se as vozes já estão carregadas, fala direto
+    if (synth.getVoices().length > 0) {
+      this.falarMensagem();
+    } else {
+      // Se ainda não carregaram, aguarda evento
+      synth.onvoiceschanged = () => {
+        this.falarMensagem();
+      };
+    }
+  }
+
+  falarMensagem(): void {
+    const synth = (window as any).speechSynthesis;
+    const voices = synth.getVoices();
+
+    const vozMaria = voices.find((v: SpeechSynthesisVoice) =>
+      v.name === "Microsoft Maria - Portuguese (Brazil)"
+    );
+
+    const mensagem = new SpeechSynthesisUtterance(
+      "Bem-vindo ao aplicativo de Monitoramento de Transporte Escolar. Em instantes, você será redirecionado para a tela de log in."
+    );
+    mensagem.lang = "pt-BR";
+    mensagem.rate = 1;
+    mensagem.pitch = 1;
+
+    if (vozMaria) {
+      mensagem.voice = vozMaria;
+    }
+
+    synth.speak(mensagem);
+
+    mensagem.onend = () => {
+      this.ngZone.run(() => {
+        this.router.navigate(['/login']);
+      })
+    };
+  }
 }
+
+

@@ -1,0 +1,122 @@
+// splash.component.scss
+
+// Paleta e tokens locais
+$color-primary-start: #1e6ef2;
+$color-primary-end: #4aa0ff;
+$color-overlay: rgba(255, 255, 255, 0.08);
+$color-text: #ffffff;
+$color-text-muted: rgba(255, 255, 255, 0.85);
+$color-dot: rgba(255, 255, 255, 0.45);
+$color-dot-active: #ffffff;
+
+$radius-round: 999px;
+$spacing-3: 12px;
+$spacing-6: 24px;
+$spacing-8: 32px;
+
+$shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.25);
+
+// Estrutura principal
+.onboarding {
+  position: relative;
+  min-height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+  color: $color-text;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  &__bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, $color-primary-start 0%, $color-primary-end 100%);
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    padding: $spacing-8 $spacing-6;
+    min-height: 100dvh;
+    display: grid;
+    grid-template-rows: 1fr auto auto auto 1fr;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+    gap: $spacing-6;
+  }
+
+
+  &__icon {
+    width: 200px;
+    height: 200px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    display: flex;
+    animation: float 4s
+    ease-in-out infinite;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__title {
+    margin: 0;
+    font-weight: 700;
+    font-size: 30px;
+
+    h1 {
+      font-size: 50px;
+    }
+  }
+
+
+
+  &__subtitle {
+    margin: 0;
+    max-width: 28ch;
+    color: $color-text-muted;
+    font-size: clamp(14px, 3.8vw, 16px);
+    line-height: 1.5;
+  }
+
+  &__dots {
+    display: inline-flex;
+    gap: $spacing-3;
+  }
+
+  &__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: $radius-round;
+    background: $color-dot;
+    transition: all 200ms ease;
+
+    &.is-active {
+      background: $color-dot-active;
+      width: 20px;
+    }
+  }
+
+  // Mobile
+  @media screen and (max-width: 768px) {
+    .onboarding__title {
+      display: flex;
+      width: 50%;
+      justify-content: center;
+
+      h1 {
+        font-size: 30px !important;
+      }
+    }
+
+  }
+
+}
+
+// Animação
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+

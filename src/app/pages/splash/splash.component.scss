@@ -62,38 +62,78 @@ $shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.25);
   &__title {
     margin: 0;
     font-weight: 700;
-    font-size: clamp(22px, 4.8vw, 28px);
+    font-size: 30px;
+
+    h1 {
+      font-size: 50px;
+    }
   }
 
   &__subtitle {
     margin: 0;
-    max-width: 28ch;
-    color: $color-text-muted;
-    font-size: clamp(14px, 3.8vw, 16px);
-    line-height: 1.5;
+    color: yellow;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+&__dots {
+display: inline-flex;
+gap: $spacing-3;
+
+}
+
+  &__dot_1,
+  &__dot_2,
+  &__dot_3 {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    background: #031836;
+    animation: bounce 0.6s ease-in-out infinite;
   }
 
-  &__dots {
-    display: inline-flex;
-    gap: $spacing-3;
+  // Definindo delays diferentes para cada bolinha
+  &__dot_2 {
+    animation-delay: 0.2s;
   }
 
-  &__dot {
-    width: 8px;
-    height: 8px;
-    border-radius: $radius-round;
-    background: $color-dot;
-    transition: all 200ms ease;
-
-    &.is-active {
-      background: $color-dot-active;
-      width: 20px;
-    }
+  &__dot_3 {
+    animation-delay: 0.4s;
   }
+
+
+// Mobile
+@media screen and (max-width: 768px) {
+.onboarding__title {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+
+  h1 {
+    font-size: 30px !important;
+  }
+}
+
+}
+
 }
 
 // Animação
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-6px); }
 }
+
+// Keyframes da animação
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: scale(0.8);
+    opacity: 0.7;
+  }
+  40% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+
