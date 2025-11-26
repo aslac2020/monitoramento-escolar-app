@@ -36,7 +36,7 @@ export class SplashComponent implements OnInit {
     );
 
     const mensagem = new SpeechSynthesisUtterance(
-      "Bem-vindo ao aplicativo de Monitoramento de Transporte Escolar. Em instantes, você será redirecionado para a tela de log in."
+      "Bem-vindo ao aplicativo 'Caminho Seguro',  Monitoramento de Transporte Escolar. Em instantes, você será redirecionado para a tela de log in."
     );
     mensagem.lang = "pt-BR";
     mensagem.rate = 1;
