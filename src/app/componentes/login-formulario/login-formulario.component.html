@@ -1,0 +1,47 @@
+<mat-card class="example-card" appearance="outlined" xmlns="http://www.w3.org/1999/html">
+  <div class="container">
+    <form [formGroup]="formulario">
+      <mat-card-content>
+        <div class="campos-login">
+          <label>E-mail</label>
+          <div class="input-wrapper">
+            <i class="material-icons prefix-icon">email</i>
+            <input
+              matInput
+              type="email"
+              placeholder="Digite seu email"
+              formControlName="email"
+              required
+            >
+          </div>
+        </div>
+        <div class="campos-login" style="margin-top: 10px">
+          <label>Senha</label>
+          <div class="input-wrapper">
+            <i class="material-icons prefix-icon">lock</i>
+            <input
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              placeholder="Digite sua senha"
+              formControlName="senha"
+              required
+            >
+            <button type="button" class="toggle-button" (click)="toggleHide()">
+              <i class="material-icons">
+                {{ hide ? 'visibility_off' : 'visibility' }}
+              </i>
+            </button>
+          </div>
+        </div>
+       <a>Esqueci senha</a>
+      </mat-card-content>
+    </form>
+  </div>
+  <mat-card-actions>
+    <button class="botoes" mat-button="filled">Entrar</button>
+  </mat-card-actions>
+</mat-card>
+<div class="botao-conta">
+  <p>Não tem uma conta ?</p>
+  <a>Criar conta</a>
+</div>
