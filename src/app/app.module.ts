@@ -6,16 +6,18 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SplashComponent } from './pages/splash/splash.component';
 import {MaterialModule} from "./shared/material/material.module";
-import { LoginComponent } from './pages/login/login.component';
-import { LoginFormularioComponent } from './componentes/login-formulario/login-formulario.component';
+import { LoginFormularioComponent } from './pages/login-formulario/login-formulario.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { CadastroComponent } from './pages/cadastro/cadastro.component';
+import { CabecalhoComponent } from './componentes/cabecalho/cabecalho.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SplashComponent,
-    LoginComponent,
-    LoginFormularioComponent
+    LoginFormularioComponent,
+    CadastroComponent,
+    CabecalhoComponent
   ],
   imports: [
     BrowserModule,

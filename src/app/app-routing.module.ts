@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {AppComponent} from "./app.component";
 import {SplashComponent} from "./pages/splash/splash.component";
-import {LoginComponent} from "./pages/login/login.component";
+import {CadastroComponent} from "./pages/cadastro/cadastro.component";
+import {LoginFormularioComponent} from "./pages/login-formulario/login-formulario.component";
 
 const routes: Routes = [
   {
@@ -11,7 +12,11 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent,
+    component: LoginFormularioComponent,
+  },
+  {
+    path: 'register',
+    component: CadastroComponent
   }
 
 ];

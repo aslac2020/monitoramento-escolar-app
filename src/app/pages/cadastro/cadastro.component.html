@@ -1,8 +1,24 @@
+
 <mat-card class="example-card" appearance="outlined" xmlns="http://www.w3.org/1999/html">
   <div class="container">
     <form [formGroup]="formulario">
+      <span >Criar Conta</span>
+
       <mat-card-content>
-        <div class="campos-login">
+        <div class="campos-formulario">
+          <label>Nome Completo</label>
+          <div class="input-wrapper">
+            <i class="material-icons prefix-icon">person</i>
+            <input
+              matInput
+              type="text"
+              placeholder="Digite seu nome completo"
+              formControlName="nome"
+              required
+            >
+          </div>
+        </div>
+        <div class="campos-formulario">
           <label>E-mail</label>
           <div class="input-wrapper">
             <i class="material-icons prefix-icon">email</i>
@@ -15,7 +31,19 @@
             >
           </div>
         </div>
-        <div class="campos-login" style="margin-top: 10px">
+        <div class="campos-formulario">
+          <label>Telefone</label>
+          <div class="input-wrapper">
+            <i class="material-icons prefix-icon">phone</i>
+            <input
+              matInput
+              type="text"
+              placeholder="Digite seu telefone"
+              formControlName="telefone"
+            >
+          </div>
+        </div>
+        <div class="campos-formulario" style="margin-top: 10px">
           <label>Senha</label>
           <div class="input-wrapper">
             <i class="material-icons prefix-icon">lock</i>
@@ -33,7 +61,7 @@
             </button>
           </div>
         </div>
-       <a>Esqueci senha</a>
+        <a>Esqueci senha</a>
       </mat-card-content>
     </form>
   </div>

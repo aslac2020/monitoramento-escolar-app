@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login-formulario',
@@ -10,7 +11,8 @@ export class LoginFormularioComponent implements OnInit {
  formulario!: FormGroup;
  hide: boolean = true;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+              private  router: Router) { }
 
   ngOnInit(): void {
     this.iniciarFormulario();
@@ -26,5 +28,9 @@ export class LoginFormularioComponent implements OnInit {
  toggleHide(): void{
    this.hide = !this.hide;
 }
+
+  redirecionarTelaCadastro(){
+    this.router.navigate(['/register']);
+  }
 
 }

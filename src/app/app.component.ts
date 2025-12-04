@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'monitoramento-escolar-front';
+
+  constructor(private router: Router) {
+  }
+
+  get mostrarSplash(){
+    return this.router.url === '/';
+  }
+
+  get mostrarCabecalho(){
+    return this.router.url !== '/';
+  }
 }

@@ -1,0 +1,120 @@
+//variaveis
+$text-color: #191970;
+
+::ng-deep app-cadastro {
+  display: flex  !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+.example-card {
+  width: 100%;
+  border-radius: 20px;
+  height: auto;
+}
+
+span {
+  color: $text-color;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+}
+
+.campos-formulario {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+
+  label {
+    color: $text-color;
+    margin-bottom: 4px;
+    display: flex;
+    margin-top: 10px;
+  }
+
+  .input-wrapper {
+    position: relative;
+
+    input {
+      width: 100%;
+      border-radius: 8px;
+      background-color: #f3f3f5;
+      height: 45px;
+      border: 1px solid #D9E7FA;
+      padding-left: 40px;
+      padding-right: 40px;
+      box-sizing: border-box;
+    }
+
+    .prefix-icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #031836;
+      font-size: 20px;
+      pointer-events: none;
+    }
+
+    .toggle-button {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+
+      i {
+        color: #031836;
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+a {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  cursor: pointer;
+  color: #2B6DFC;
+  font-weight: bold;
+}
+
+.botoes {
+  background-color: #155DFC;
+  border-radius: 10px;
+  color: #fff;
+  width: 250px;
+  height: 45px;
+}
+
+.botao-conta {
+  margin-top: 20px;
+  p {
+    color: #1C398E;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  a {
+    display: flex;
+    align-content: center;
+    color: #011032;
+    justify-content: center;
+    margin-top: 10px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+}
+
+
+
+
+
+
