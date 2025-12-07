@@ -10,6 +10,8 @@ import { LoginFormularioComponent } from './pages/login-formulario/login-formula
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { CadastroComponent } from './pages/cadastro/cadastro.component';
 import { CabecalhoComponent } from './componentes/cabecalho/cabecalho.component';
+import {NgxMaskDirective, NgxMaskModule} from 'ngx-mask';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { CabecalhoComponent } from './componentes/cabecalho/cabecalho.component'
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    NgxMaskModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

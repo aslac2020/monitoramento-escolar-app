@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import { NgZone } from '@angular/core';
 
@@ -8,7 +8,7 @@ import { NgZone } from '@angular/core';
   templateUrl: './splash.component.html',
   styleUrls: ['./splash.component.scss']
 })
-export class SplashComponent implements OnInit {
+export class SplashComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router, private ngZone: NgZone) {
   }
@@ -25,6 +25,11 @@ export class SplashComponent implements OnInit {
         this.falarMensagem();
       };
     }
+  }
+
+  ngOnDestroy() {
+    const synth = (window as any).speechSynthesis;
+    synth.cancel(); // Cancela qualquer fala pendente
   }
 
   falarMensagem(): void {

@@ -74,6 +74,11 @@ span {
       }
     }
   }
+
+  .campo-erro{
+    color: darkred;
+    font-size: 0.9rem;
+  }
 }
 
 a {
@@ -85,12 +90,14 @@ a {
   font-weight: bold;
 }
 
-.botoes {
+button.mat-raised-button {
   background-color: #155DFC;
   border-radius: 10px;
   color: #fff;
   width: 250px;
   height: 45px;
+
+
 }
 
 .botao-conta {
