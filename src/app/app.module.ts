@@ -12,6 +12,9 @@ import { CadastroComponent } from './pages/cadastro/cadastro.component';
 import { CabecalhoComponent } from './componentes/cabecalho/cabecalho.component';
 import {NgxMaskDirective, NgxMaskModule} from 'ngx-mask';
 import {HttpClientModule} from "@angular/common/http";
+import {MessageService} from "primeng/api";
+import { EsqueciSenhaComponent } from './pages/esqueci-senha/esqueci-senha.component';
+import { CodigoEmailComponent } from './pages/codigo-email/codigo-email.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,9 @@ import {HttpClientModule} from "@angular/common/http";
     SplashComponent,
     LoginFormularioComponent,
     CadastroComponent,
-    CabecalhoComponent
+    CabecalhoComponent,
+    EsqueciSenhaComponent,
+    CodigoEmailComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +36,7 @@ import {HttpClientModule} from "@angular/common/http";
     ReactiveFormsModule,
     NgxMaskModule.forRoot()
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

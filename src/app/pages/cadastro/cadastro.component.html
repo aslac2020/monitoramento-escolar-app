@@ -3,7 +3,6 @@
   <div class="container">
     <form [formGroup]="formulario">
       <span >Criar Conta</span>
-
       <mat-card-content>
         <div class="campos-formulario">
           <label>Nome Completo</label>
@@ -71,13 +70,27 @@
             </button>
           </div>
         </div>
-        <a>Esqueci senha</a>
+        <div class="campos-formulario" style="margin-top: 10px">
+          <label>Tipo de Usuario</label>
+          <div class="input-wrapper">
+            <p-dropdown
+              formControlName="idtipoUsuario"
+              [options]="listaTipoUsuarios"
+              optionLabel="descricaoTipoUsuario"
+              optionValue="id"
+              placeholder="Selecione o tipo de usuario"
+            >
+            </p-dropdown>
+          </div>
+        </div>
       </mat-card-content>
     </form>
   </div>
   <mat-card-actions>
     <button mat-raised-button color="primary"
-            [disabled]="formulario.invalid">
+            [disabled]="formulario.invalid"
+    (click)="cadastrar()"
+    >
       Cadastrar
     </button>
   </mat-card-actions>

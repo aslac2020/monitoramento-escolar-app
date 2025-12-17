@@ -2,6 +2,15 @@
   <div class="container">
     <form [formGroup]="formulario">
       <mat-card-content>
+        <div class="info-senha">
+          <div class="icone-email">
+            <i class="material-icons" style="font-size: 20px !important; color: #1e6ef2">mail</i>
+          </div>
+          <div class="recuperar-senha">
+            <h1>Recuperar Senha</h1>
+            <span>Digite seu e-mail para receber instruções de recuperação da sua senha.</span>
+          </div>
+        </div>
         <div class="campos-login">
           <label>E-mail</label>
           <div class="input-wrapper">
@@ -18,42 +27,29 @@
           <span class="campo-erro" *ngIf="email?.hasError('required')">
             O e-mail é obrigatório
           </span>
+            <br>
             <span class="campo-erro" *ngIf="email?.hasError('email')">
               E-mail inválido
             </span>
           </div>
         </div>
-        <div class="campos-login" style="margin-top: 10px">
-          <label>Senha</label>
-          <div class="input-wrapper">
-            <i class="material-icons prefix-icon">lock</i>
-            <input
-              matInput
-              [type]="hide ? 'password' : 'text'"
-              placeholder="Digite sua senha"
-              formControlName="senha"
-              maxlength="6"
-              required
-            >
-            <button type="button" class="toggle-button" (click)="toggleHide()">
-              <i class="material-icons">
-                {{ hide ? 'visibility_off' : 'visibility' }}
-              </i>
-            </button>
-          </div>
-        </div>
-       <a [routerLink]="'/esqueci-senha'">Esqueci senha</a>
       </mat-card-content>
     </form>
   </div>
   <mat-card-actions>
     <button mat-raised-button color="primary"
             [disabled]="formulario.invalid"
-    (click)="entrar()"
-    >Entrar</button>
+            (click)="enviarEmail()"
+    >Enviar Email</button>
   </mat-card-actions>
+  <div class="botao-conta">
+    <button mat-button color="primary"
+            style="display: flex; background-color: transparent; align-items: center;justify-content: center;"
+            (click)="voltarLogin()"
+    >
+      <i class="material-icons" style="font-size: 20px !important;">arrow_back</i>
+      Voltar ao Login</button>
+  </div>
 </mat-card>
-<div class="botao-conta">
-  <p>Não tem uma conta ?</p>
-  <a (click)="redirecionarTelaCadastro()">Criar conta</a>
-</div>
+
+

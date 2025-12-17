@@ -1,21 +1,33 @@
-//variaveis
+// Variáveis
 $text-color: #191970;
 
+// Layout base mobile-first
 ::ng-deep app-cadastro {
-  display: flex  !important;
-  flex-direction: column !important;
-  align-items: center !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+::ng-deep .mat-card {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
 
 .example-card {
   width: 100%;
+  max-width: 320px;
   border-radius: 20px;
   height: auto;
+  margin: 0 auto;
+  padding: 16px;
+  box-sizing: border-box;
 }
 
 span {
   color: $text-color;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   display: flex;
 }
@@ -23,13 +35,14 @@ span {
 .campos-formulario {
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
+  margin-top: 12px;
 
   label {
     color: $text-color;
     margin-bottom: 4px;
-    display: flex;
+    font-size: 14px;
     margin-top: 10px;
+    display: flex;
   }
 
   .input-wrapper {
@@ -39,11 +52,12 @@ span {
       width: 100%;
       border-radius: 8px;
       background-color: #f3f3f5;
-      height: 45px;
+      height: 40px;
       border: 1px solid #D9E7FA;
-      padding-left: 40px;
-      padding-right: 40px;
+      padding-left: 36px;
+      padding-right: 36px;
       box-sizing: border-box;
+      font-size: 14px;
     }
 
     .prefix-icon {
@@ -52,7 +66,7 @@ span {
       top: 50%;
       transform: translateY(-50%);
       color: #031836;
-      font-size: 20px;
+      font-size: 18px;
       pointer-events: none;
     }
 
@@ -70,42 +84,77 @@ span {
 
       i {
         color: #031836;
-        font-size: 20px;
+        font-size: 18px;
       }
+    }
+
+    p-dropdown {
+      width: 100% !important;
+    }
+
+    ::ng-deep .p-dropdown {
+      border-radius: 8px;
+      background-color: #f3f3f5;
+      height: 40px;
+      border: 1px solid #D9E7FA;
+      padding-left: 36px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    ::ng-deep .p-dropdown-label {
+      padding-left: 0;
+      color: #031836;
+    }
+
+    ::ng-deep .p-dropdown-trigger {
+      color: #031836;
     }
   }
 
-  .campo-erro{
+  .campo-erro {
     color: darkred;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    margin-top: 4px;
   }
 }
 
 a {
   display: flex;
   justify-content: flex-end;
-  margin-top: 10px;
+  margin-top: 8px;
   cursor: pointer;
   color: #2B6DFC;
   font-weight: bold;
+  font-size: 14px;
 }
 
 button.mat-raised-button {
   background-color: #155DFC;
   border-radius: 10px;
   color: #fff;
-  width: 250px;
-  height: 45px;
+  width: 100%;
+  max-width: 250px;
+  height: 40px;
+  font-size: 14px;
+  cursor: pointer;
+}
 
-
+button.mat-raised-button:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
 }
 
 .botao-conta {
-  margin-top: 20px;
+  margin-top: 16px;
+
   p {
     color: #1C398E;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
   }
 
   a {
@@ -113,15 +162,67 @@ button.mat-raised-button {
     align-content: center;
     color: #011032;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 8px;
     cursor: pointer;
     font-weight: bold;
+    font-size: 14px;
   }
-
 }
 
+// Responsividade para telas maiores
+@media (min-width: 600px) {
+  .example-card {
+    max-width: 500px;
+    padding: 24px;
+  }
 
+  span {
+    font-size: 18px;
+  }
 
+  button.mat-raised-button {
+    height: 45px;
+  }
+}
 
+@media (min-width: 900px) {
+  .example-card {
+    max-width: 700px;
+    padding: 32px;
+  }
 
+  span {
+    font-size: 20px;
+  }
 
+  .campos-formulario label {
+    font-size: 16px;
+  }
+
+  input,
+  ::ng-deep .p-dropdown {
+    height: 45px;
+    font-size: 16px;
+  }
+
+  .campo-erro {
+    font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .example-card {
+    max-width: 900px;
+    padding: 40px;
+  }
+
+  span {
+    font-size: 22px;
+  }
+
+  button.mat-raised-button {
+    max-width: 300px;
+    height: 50px;
+    font-size: 16px;
+  }
+}

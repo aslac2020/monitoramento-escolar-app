@@ -1,0 +1,47 @@
+<mat-card class="example-card" appearance="outlined" xmlns="http://www.w3.org/1999/html">
+  <div class="container">
+    <form [formGroup]="formulario">
+      <mat-card-content>
+        <div class="info-senha">
+          <div class="icone-email">
+            <i class="material-icons" style="font-size: 20px !important; color: #1e6ef2">mail</i>
+          </div>
+          <div class="recuperar-senha">
+            <h1>Verificacao Codigo</h1>
+            <span>Digite seu e-mail para receber instruções de recuperação da sua senha.</span>
+          </div>
+        </div>
+        <div class="campos-login">
+          <label>E-mail</label>
+          <div class="input-wrapper">
+            <i class="material-icons prefix-icon">email</i>
+            <input
+              matInput
+              type="email"
+              placeholder="Digite seu email"
+              formControlName="email"
+              required
+            >
+          </div>
+        </div>
+      </mat-card-content>
+    </form>
+  </div>
+  <mat-card-actions>
+    <button mat-raised-button color="primary"
+            [disabled]="formulario.invalid"
+
+    >Enviar Email</button>
+  </mat-card-actions>
+  <div class="botao-conta">
+    <button mat-button color="primary"
+            style="display: flex; background-color: transparent; align-items: center;justify-content: center;"
+
+    >
+      <i class="material-icons" style="font-size: 20px !important;">arrow_back</i>
+      Voltar ao Login</button>
+  </div>
+</mat-card>
+
+
+

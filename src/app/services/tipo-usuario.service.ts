@@ -11,7 +11,7 @@ export class TipoUsuarioService {
 
   constructor(private http: HttpClient) { }
 
-  buscarTiposUsuarios(): Observable<TipoUsuarioModel>{
-    return this.http.get<TipoUsuarioModel>(`${environment.baseURL}/TipoUsuario/listar`)
+  buscarTiposUsuarios(): Observable<TipoUsuarioModel[]>{
+    return this.http.get<TipoUsuarioModel[]>(`${environment.baseURL}/TipoUsuario/listar`)
   }
 }
