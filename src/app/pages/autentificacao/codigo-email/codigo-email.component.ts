@@ -14,7 +14,7 @@ export class CodigoEmailComponent implements OnInit, OnDestroy {
   formulario!: FormGroup;
   public tokenErro: string | null = null;
   public tokenExpirado = false;
-  private countdownSegundos = 180; // 2 minutos
+  private countdownSegundos = 900; // 15 minutos
   private restante = this.countdownSegundos;
   private restanteSubject = new BehaviorSubject<string>('15:00');
   public tempoRestante$ = this.restanteSubject.asObservable();
@@ -138,6 +138,7 @@ export class CodigoEmailComponent implements OnInit, OnDestroy {
   public reenviarCodigo(): void {
     const rawData = this.storage.obter('portalSameTempForm', 'SESSIONSTORAGE');
     const emailSessao = this.storage.obter('emailTempForm', 'SESSIONSTORAGE');
+    const token = this.formulario.get('token')?.value;
     // const decryptedData = this.criptografiaService.descriptografar(rawData);
     // if (!decryptedData) {
     //   this.mostrarDialogoErro('Não foi possível reenviar o token. Tente novamente.', 'Erro');

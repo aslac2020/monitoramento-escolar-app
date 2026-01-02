@@ -118,7 +118,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
         },
         complete: () => {
           this.messageService.add({severity: 'success', summary: 'Usuario cadastrado com sucesso :)', detail: 'Message Content'});
-          this.router.navigate(['/login']);
+          this.router.navigate(['/auth/login']);
         }
       })
     )

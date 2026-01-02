@@ -13,20 +13,19 @@ import {MessageService} from "primeng/api";
 })
 export class EsqueciSenhaComponent implements OnInit, OnDestroy {
   formulario!: FormGroup;
+  private readonly STORAGE_KEY_TEMP = 'emailTempForm';
 
   private subscriptions = new Subscription();
 
   constructor(private formBuilder: FormBuilder,
-              private  router: Router,
-              private authService: AutenticacaoService,
-              private messageService: MessageService,
-              ) { }
+    private  router: Router,
+    private authService: AutenticacaoService,
+    private messageService: MessageService,
+    ) { }
 
   get email(){
     return this.formulario.get('email');
   }
-
-
 
   ngOnInit(): void {
     this.iniciarFormulario()
@@ -43,31 +42,34 @@ export class EsqueciSenhaComponent implements OnInit, OnDestroy {
   }
 
 
-
   enviarEmail(){
-    this.router.navigate(['/envio-codigo']);
+
+    const email = this.formulario.get('email')?.value;
 
 
     const param : SolicitarParam = {
-      Email: this.formulario.get('email')?.value
+      Email: email
     }
-    // this.subscriptions.add(
-    //   this.authService.solicitarNovaSenha(param).subscribe({
-    //     next: (senha: any) => {
-    //     },
-    //     error: (err) => {
-    //       console.error('Erro ao buscar tipos de usuário:', err);
-    //     },
-    //     complete: () => {
-    //       this.messageService.add({severity: 'success', summary: 'Email Enviado com sucesso :)', detail: 'Message Content'});
-    //       this.router.navigate(['/envio-codigo']);
-    //     }
-    //   })
-    // )
+
+    this.subscriptions.add(
+      this.authService.solicitarNovaSenha(param).subscribe({
+        next: (senha: any) => {
+          console.log('Email enviado com sucesso:', senha);
+        },
+        error: (err) => {
+          console.error('Erro ao buscar tipos de usuário:', err);
+        },
+        complete: () => {
+          sessionStorage.setItem(this.STORAGE_KEY_TEMP, email);
+          this.messageService.add({severity: 'success', summary: 'Email Enviado com sucesso :)', detail: 'Message Content'});
+          this.router.navigate(['/auth/envio-codigo']);
+        }
+      })
+    )
   }
 
   voltarLogin(){
-  this.router.navigate(['login']);
+  this.router.navigate(['/auth/login']);
   }
 
 

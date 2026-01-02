@@ -15,6 +15,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {MessageService} from "primeng/api";
 import { EsqueciSenhaComponent } from './pages/autentificacao/esqueci-senha/esqueci-senha.component';
 import { CodigoEmailComponent } from './pages/autentificacao/codigo-email/codigo-email.component';
+import { DashboardResponsavelComponent } from './pages/dashboards/dashboard-responsavel/dashboard-responsavel.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CodigoEmailComponent } from './pages/autentificacao/codigo-email/codigo
     CadastroComponent,
     CabecalhoComponent,
     EsqueciSenhaComponent,
-    CodigoEmailComponent
+    CodigoEmailComponent,
+    DashboardResponsavelComponent
   ],
   imports: [
     BrowserModule,

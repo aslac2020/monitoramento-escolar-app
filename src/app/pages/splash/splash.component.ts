@@ -45,7 +45,7 @@ export class SplashComponent implements OnInit, OnDestroy {
 
     mensagem.onend = () => {
       this.ngZone.run(() => {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/auth/login']);
       })
     };
   }

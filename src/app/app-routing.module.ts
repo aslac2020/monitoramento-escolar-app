@@ -12,6 +12,10 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./pages/autentificacao/modulo/core/auth.module').then(m => m.AuthModule)
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./pages/dashboards/modulo/dashboard/dashboard.module').then(m => m.DashboardModule)
   }
 
 ];

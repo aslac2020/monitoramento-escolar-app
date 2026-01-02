@@ -47,7 +47,7 @@ export class LoginFormularioComponent implements OnInit, OnDestroy {
 }
 
   redirecionarTelaCadastro(){
-    this.router.navigate(['/register']);
+    this.router.navigate(['/auth/register']);
   }
 
   emailValidator(control: AbstractControl): ValidationErrors | null {
