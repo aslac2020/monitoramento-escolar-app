@@ -12,3 +12,7 @@ export class LoginParam {
 export class SolicitarParam {
   Email?: string;
 }
+export class ResetarSenhaParam {
+  Token?: string;
+  NovaSenha?: string;
+}

@@ -1,0 +1,71 @@
+<mat-card class="example-card" appearance="outlined" xmlns="http://www.w3.org/1999/html">
+  <div class="container">
+    <form [formGroup]="formulario">
+      <mat-card-content>
+        <div class="info-senha">
+          <div class="icone-email">
+            <i class="material-icons" style="font-size: 20px !important; color: #1e6ef2">mail</i>
+          </div>
+          <div class="recuperar-senha">
+            <h1>Verificacao Codigo</h1>
+            <span>Enviamos um código de verificação para seu email. Digite o código de 6 dígitos abaixo.</span>
+          </div>
+        </div>
+        <div class="campos-login">
+          <div class="token-inputs" >
+            <input
+              *ngFor="let ctrl of tokenControls; let i = index"
+              matInput
+              type="text"
+              #tokenBox
+              inputmode="numeric"
+              maxlength="1"
+              autocomplete="one-time-code"
+              formControlName="token"
+              (input)="aoInputToken($event, i)"
+              (keydown)="aoKeyDownToken($event, i)"
+              (focus)="tokenBox.select()"
+            >
+          </div>
+        </div>
+
+        <div class="token-expira-wrapper">
+          <button
+            type="button"
+            class="btn-timer"
+            disabled
+            *ngIf="!tokenExpirado">
+            <span>O código expira em</span>
+            <strong>{{ tempoRestante$ | async }}</strong>
+          </button>
+
+          <button
+            type="button"
+            class="btn-primary btn-timer"
+            *ngIf="tokenExpirado"
+            (click)="reenviarCodigo()">
+            Reenviar código
+          </button>
+        </div>
+
+
+      </mat-card-content>
+    </form>
+  </div>
+  <mat-card-actions>
+    <button mat-raised-button color="primary"
+            [disabled]="formulario.invalid"
+
+    >Verificar Código</button>
+  </mat-card-actions>
+  <div class="botao-conta">
+    <button mat-button color="primary"
+            style="display: flex; background-color: transparent; align-items: center;justify-content: center;"
+    >
+      <i class="material-icons" style="font-size: 20px !important;">arrow_back</i>
+      Voltar ao Login</button>
+  </div>
+</mat-card>
+
+
+

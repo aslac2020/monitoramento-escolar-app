@@ -2,8 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {SolicitarParam} from "../../models/login";
-import {AutenticacaoService} from "../../services/autenticacao.service";
+import {SolicitarParam} from "../../../models/login";
+import {AutenticacaoService} from "../../../services/autenticacao.service";
 import {MessageService} from "primeng/api";
 
 @Component({
@@ -14,18 +14,13 @@ import {MessageService} from "primeng/api";
 export class EsqueciSenhaComponent implements OnInit, OnDestroy {
   formulario!: FormGroup;
 
-
   private subscriptions = new Subscription();
-
-
 
   constructor(private formBuilder: FormBuilder,
               private  router: Router,
               private authService: AutenticacaoService,
               private messageService: MessageService,
               ) { }
-
-
 
   get email(){
     return this.formulario.get('email');
@@ -38,7 +33,7 @@ export class EsqueciSenhaComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-
+    this.subscriptions.unsubscribe();
   }
 
   iniciarFormulario(): void {
@@ -50,21 +45,25 @@ export class EsqueciSenhaComponent implements OnInit, OnDestroy {
 
 
   enviarEmail(){
+    this.router.navigate(['/envio-codigo']);
+
+
     const param : SolicitarParam = {
       Email: this.formulario.get('email')?.value
     }
-    this.subscriptions.add(
-      this.authService.solicitarNovaSenha(param).subscribe({
-        next: (senha: any) => {
-        },
-        error: (err) => {
-          console.error('Erro ao buscar tipos de usuário:', err);
-        },
-        complete: () => {
-          this.messageService.add({severity: 'success', summary: 'Email Enviado com sucesso :)', detail: 'Message Content'});
-        }
-      })
-    )
+    // this.subscriptions.add(
+    //   this.authService.solicitarNovaSenha(param).subscribe({
+    //     next: (senha: any) => {
+    //     },
+    //     error: (err) => {
+    //       console.error('Erro ao buscar tipos de usuário:', err);
+    //     },
+    //     complete: () => {
+    //       this.messageService.add({severity: 'success', summary: 'Email Enviado com sucesso :)', detail: 'Message Content'});
+    //       this.router.navigate(['/envio-codigo']);
+    //     }
+    //   })
+    // )
   }
 
   voltarLogin(){

@@ -2,8 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
-import {AutenticacaoService} from "../../services/autenticacao.service";
-import {LoginParam} from "../../models/login";
+import {AutenticacaoService} from "../../../services/autenticacao.service";
+import {LoginParam} from "../../../models/login";
 
 @Component({
   selector: 'app-login-formulario',

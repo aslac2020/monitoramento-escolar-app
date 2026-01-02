@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {LoginParam, SolicitarParam} from "../models/login";
+import {LoginParam, ResetarSenhaParam, SolicitarParam} from "../models/login";
 
 @Injectable({
   providedIn: 'root'
@@ -16,5 +16,8 @@ export class AutenticacaoService {
 
   solicitarNovaSenha(param: SolicitarParam)  {
     return this.http.post(`${environment.baseURL}/AutenticaoUsuario/solicitar`, param);
+  }
+  resterarSenha(param: ResetarSenhaParam)  {
+    return this.http.post(`${environment.baseURL}/AutenticaoUsuario/resetar`, param);
   }
 }

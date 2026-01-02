@@ -1,0 +1,78 @@
+.token-inputs {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 12px;
+
+  input {
+    border-radius: 10px;
+    height: 59px;
+    width: 52px;
+    font-size: 1.2rem;
+    text-align: center;
+    border: 2px solid #155DFC; // azul do app
+    background-color: #f3f3f5;
+    color: #031836;
+
+    &:focus {
+      outline: none;
+      border-color: #1e6ef2; // tom mais vibrante ao focar
+      box-shadow: 0 0 0 2px rgba(30, 110, 242, 0.2);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .token-inputs {
+    gap: 8px;
+    margin-top: 10px;
+
+    input {
+      width: 42px;
+      height: 50px;
+      font-size: 1rem;
+    }
+  }
+
+  button.mat-raised-button {
+    width: 100%;
+  }
+
+  .botao-conta {
+    flex-direction: column;
+    align-items: center;
+
+    button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}
+
+.token-expira-wrapper {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+
+  span {
+    color:#848994;
+  }
+
+  strong {
+    color: #484B52
+  }
+}
+
+@keyframes blink-border {
+  0% {
+    border-color: #155DFC;
+  }
+  50% {
+    border-color: #1e6ef2;
+  }
+  100% {
+    border-color: #155DFC;
+  }
+}
+
+

@@ -2,10 +2,10 @@ import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
-import {TipoUsuarioService} from "../../services/tipo-usuario.service";
+import {TipoUsuarioService} from "../../../services/tipo-usuario.service";
 import {error} from "@angular/compiler/src/util";
-import {TipoUsuarioModel} from "../../models/tipoUsuario";
-import {UsuarioService} from "../../services/usuario.service";
+import {TipoUsuarioModel} from "../../../models/tipoUsuario";
+import {UsuarioService} from "../../../services/usuario.service";
 import {MessageService} from "primeng/api";
 
 @Component({
