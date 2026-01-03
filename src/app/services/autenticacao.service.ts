@@ -17,7 +17,7 @@ export class AutenticacaoService {
   solicitarNovaSenha(param: SolicitarParam)  {
     return this.http.post(`${environment.baseURL}/AutenticaoUsuario/solicitar`, param);
   }
-  resterarSenha(param: ResetarSenhaParam)  {
+  resetarSenha(param: ResetarSenhaParam)  {
     return this.http.post(`${environment.baseURL}/AutenticaoUsuario/resetar`, param);
   }
 }

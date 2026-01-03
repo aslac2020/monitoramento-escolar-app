@@ -19,7 +19,7 @@ export class SplashComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     const synth = (window as any).speechSynthesis;
-    synth.cancel(); // Cancela qualquer fala pendente
+    synth.cancel();
   }
 
   falarMensagem(): void {

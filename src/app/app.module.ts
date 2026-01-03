@@ -16,6 +16,7 @@ import {MessageService} from "primeng/api";
 import { EsqueciSenhaComponent } from './pages/autentificacao/esqueci-senha/esqueci-senha.component';
 import { CodigoEmailComponent } from './pages/autentificacao/codigo-email/codigo-email.component';
 import { DashboardResponsavelComponent } from './pages/dashboards/dashboard-responsavel/dashboard-responsavel.component';
+import { NovaSenhaComponent } from './pages/autentificacao/nova-senha/nova-senha.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { DashboardResponsavelComponent } from './pages/dashboards/dashboard-resp
     CabecalhoComponent,
     EsqueciSenhaComponent,
     CodigoEmailComponent,
-    DashboardResponsavelComponent
+    DashboardResponsavelComponent,
+    NovaSenhaComponent
   ],
   imports: [
     BrowserModule,

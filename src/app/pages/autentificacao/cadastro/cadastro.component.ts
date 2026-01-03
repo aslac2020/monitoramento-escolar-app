@@ -1,12 +1,12 @@
-import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
-import {Subscription} from "rxjs";
-import {Router} from "@angular/router";
-import {TipoUsuarioService} from "../../../services/tipo-usuario.service";
-import {error} from "@angular/compiler/src/util";
-import {TipoUsuarioModel} from "../../../models/tipoUsuario";
-import {UsuarioService} from "../../../services/usuario.service";
-import {MessageService} from "primeng/api";
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from "@angular/forms";
+import { Subscription } from "rxjs";
+import { Router } from "@angular/router";
+import { TipoUsuarioService } from "../../../services/tipo-usuario.service";
+import { error } from "@angular/compiler/src/util";
+import { TipoUsuarioModel } from "../../../models/tipoUsuario";
+import { UsuarioService } from "../../../services/usuario.service";
+import { MessageService } from "primeng/api";
 
 @Component({
   selector: 'app-cadastro',
@@ -22,16 +22,16 @@ export class CadastroComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
 
   constructor(private formBuilder: FormBuilder,
-              private ngZone: NgZone,
-              private router: Router,
-              private tipoUsuarioService: TipoUsuarioService,
-              private usuarioService: UsuarioService,
-              private messageService: MessageService
-            ){
+    private ngZone: NgZone,
+    private router: Router,
+    private tipoUsuarioService: TipoUsuarioService,
+    private usuarioService: UsuarioService,
+    private messageService: MessageService
+  ) {
     this.iniciarMensagemFalada();
   }
 
-  get email(){
+  get email() {
     return this.formulario.get('email');
   }
 
@@ -83,10 +83,10 @@ export class CadastroComponent implements OnInit, OnDestroy {
       idtipoUsuario: ['', Validators.required],
     })
 
-   this.formulario.get('tipoUsuario')?.valueChanges.subscribe((idTipoUsuario) => {
-     this.idTipoUsuario = idTipoUsuario;
-     console.log(this.idTipoUsuario);
-   })
+    this.formulario.get('tipoUsuario')?.valueChanges.subscribe((idTipoUsuario) => {
+      this.idTipoUsuario = idTipoUsuario;
+      console.log(this.idTipoUsuario);
+    })
   }
 
   buscarTipoUsuario(): void {
@@ -107,7 +107,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
     );
   }
 
-  cadastrar(){
+  cadastrar() {
     const param = this.formulario.getRawValue();
     this.subscriptions.add(
       this.usuarioService.cadastrarUsuario(param).subscribe({
@@ -117,7 +117,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
           console.error('Erro ao buscar tipos de usuário:', err);
         },
         complete: () => {
-          this.messageService.add({severity: 'success', summary: 'Usuario cadastrado com sucesso :)', detail: 'Message Content'});
+          this.messageService.add({ severity: 'success', summary: 'Usuario cadastrado com sucesso :)', detail: 'Message Content' });
           this.router.navigate(['/auth/login']);
         }
       })
@@ -132,7 +132,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
     return valid ? null : { email: true };
   }
 
-  toggleHide(): void{
+  toggleHide(): void {
     this.hide = !this.hide;
   }
 

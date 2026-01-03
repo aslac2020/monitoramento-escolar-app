@@ -4,6 +4,7 @@ import { LoginFormularioComponent } from '../login-formulario/login-formulario.c
 import { CadastroComponent } from '../cadastro/cadastro.component';
 import { EsqueciSenhaComponent } from '../esqueci-senha/esqueci-senha.component';
 import { CodigoEmailComponent } from '../codigo-email/codigo-email.component';
+import { NovaSenhaComponent } from '../nova-senha/nova-senha.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'envio-codigo',
     component: CodigoEmailComponent
+  },
+  {
+    path: 'nova-senha',
+    component: NovaSenhaComponent
   }
 
 ];

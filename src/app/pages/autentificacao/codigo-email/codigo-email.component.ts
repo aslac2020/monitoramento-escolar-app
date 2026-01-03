@@ -1,9 +1,10 @@
-import {Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, ElementRef, NgZone, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {BehaviorSubject, interval, Subscription} from "rxjs";
 import {map, takeWhile} from "rxjs/operators";
 import {ArmazenamentoGlobalService} from "../../../core/armazenamento-global.service";
 import {AutenticacaoService} from "../../../services/autenticacao.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-codigo-email',
@@ -19,6 +20,8 @@ export class CodigoEmailComponent implements OnInit, OnDestroy {
   private restanteSubject = new BehaviorSubject<string>('15:00');
   public tempoRestante$ = this.restanteSubject.asObservable();
   public tokenControls: string[] = ['d1', 'd2', 'd3', 'd4', 'd5', 'd6'];
+  private readonly STORAGE_KEY_TEMP = 'emailTempForm';
+  private readonly STORAGE_KEY_TEMP_TOKEN = 'tokenTemp';
 
  private subscriptions = new Subscription();
 
@@ -27,18 +30,23 @@ export class CodigoEmailComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private storage: ArmazenamentoGlobalService,
-    private authService: AutenticacaoService) { }
+    private authService: AutenticacaoService,
+    private ngZone: NgZone,
+    private router: Router) { }
 
 
   ngOnInit(): void {
     this.iniciarCampos();
     this.iniciarFormulario();
+    this.falarMensagem();
     this.iniciarContagem();
 
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    const synth = (window as any).speechSynthesis;
+    synth.cancel();
   }
 
   iniciarCampos(){
@@ -47,13 +55,13 @@ export class CodigoEmailComponent implements OnInit, OnDestroy {
     this.tokenControls.forEach((c) => {
       group[c] = ['', [Validators.required, Validators.pattern(/^[0-9]$/)]];
     });
+
+    return group;
   }
 
   iniciarFormulario() {
-
-   this.formulario = this.formBuilder.group({
-     token: ['', Validators.required],
-   })
+    const group = this.iniciarCampos();
+    this.formulario = this.formBuilder.group(group);
   }
 
   private iniciarContagem(): void {
@@ -87,7 +95,7 @@ export class CodigoEmailComponent implements OnInit, OnDestroy {
     const input = ev.target as HTMLInputElement;
     input.value = input.value.replace(/\D/g, '').slice(0, 1);
     const ctrl = this.obterControleDigito(index);
-    ctrl.setValue(input.value, { emitEvent: false });
+    ctrl?.setValue(input.value, { emitEvent: false });
     this.tokenErro = null;
     if (input.value && index < this.tokenControls.length - 1) {
       this.focarIndice(index + 1);
@@ -136,31 +144,76 @@ export class CodigoEmailComponent implements OnInit, OnDestroy {
   }
 
   public reenviarCodigo(): void {
-    const rawData = this.storage.obter('portalSameTempForm', 'SESSIONSTORAGE');
-    const emailSessao = this.storage.obter('emailTempForm', 'SESSIONSTORAGE');
-    const token = this.formulario.get('token')?.value;
-    // const decryptedData = this.criptografiaService.descriptografar(rawData);
-    // if (!decryptedData) {
-    //   this.mostrarDialogoErro('Não foi possível reenviar o token. Tente novamente.', 'Erro');
-    //   return;
-    // }
+    const emailSessao = sessionStorage.getItem(this.STORAGE_KEY_TEMP);
+    const token = this.obterToken();
+
     const param = {
-      Email: emailSessao
+      Email: emailSessao,
+      Token: token,
     }
 
-    this.subscriptions.add(
-      this.authService.solicitarNovaSenha(param).subscribe({
-        next: (data: any) => {
-          this.iniciarContagem();
-          this.formulario.reset();
-          setTimeout(() => this.focarIndice(0), 0);
-        },
-        error: (err: any) => {
-          const mensagem =
-            err?.error?.objeto || 'Não foi possível concluir a solicitação. Tente novamente.';
-        },
-      })
+
+    // this.subscriptions.add(
+    //   this.authService.solicitarNovaSenha(param).subscribe({
+    //     next: (data: any) => {
+    //       this.iniciarContagem();
+    //       this.formulario.reset();
+    //       setTimeout(() => this.focarIndice(0), 0);
+    //     },
+    //     error: (err: any) => {
+    //       const mensagem =
+    //         err?.error?.objeto || 'Não foi possível concluir a solicitação. Tente novamente.';
+    //     },
+    //   })
+    // );
+  }
+
+  public validarCodigo(): void {
+    const token = this.obterToken();
+    sessionStorage.setItem(this.STORAGE_KEY_TEMP_TOKEN, token);
+    this.router.navigate(['/auth/nova-senha']);
+
+    //   this.authService.resetarSenha(param).subscribe({
+    //     next: (data: any) => {
+    //       if(data){
+    //         // Navegar para a tela de nova senha
+    //         this.router.navigate(['/auth/nova-senha']);
+    //       }
+
+    //     },
+    //     error: (err: any) => {
+    //       const mensagem =
+    //         err?.error?.objeto || 'Não foi possível concluir a solicitação. Tente novamente.';
+    //     },
+    //   })
+    // );
+  }
+
+  falarMensagem(): void {
+    const synth = (window as any).speechSynthesis;
+    const voices = synth.getVoices();
+
+    const vozMaria = voices.find((v: SpeechSynthesisVoice) =>
+      v.name === "Microsoft Maria - Portuguese (Brazil)"
     );
+
+    const mensagem = new SpeechSynthesisUtterance(
+     "Você está na tela de verificação de código. Enviamos um código de seis dígitos para o seu e-mail. Digite o código para continuar."
+    );
+    mensagem.lang = "pt-BR";
+    mensagem.rate = 1;
+    mensagem.pitch = 1;
+
+    if (vozMaria) {
+      mensagem.voice = vozMaria;
+    }
+
+    synth.speak(mensagem);
+
+    mensagem.onend = () => {
+      this.ngZone.run(() => {
+      })
+    };
   }
 
 

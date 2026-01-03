@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
@@ -21,6 +21,7 @@ export class EsqueciSenhaComponent implements OnInit, OnDestroy {
     private  router: Router,
     private authService: AutenticacaoService,
     private messageService: MessageService,
+    private ngZone: NgZone
     ) { }
 
   get email(){
@@ -28,11 +29,14 @@ export class EsqueciSenhaComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.iniciarFormulario()
+    this.iniciarFormulario();
+    this.falarMensagem();
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    const synth = (window as any).speechSynthesis;
+    synth.cancel();
   }
 
   iniciarFormulario(): void {
@@ -45,7 +49,6 @@ export class EsqueciSenhaComponent implements OnInit, OnDestroy {
   enviarEmail(){
 
     const email = this.formulario.get('email')?.value;
-
 
     const param : SolicitarParam = {
       Email: email
@@ -66,6 +69,33 @@ export class EsqueciSenhaComponent implements OnInit, OnDestroy {
         }
       })
     )
+  }
+
+  falarMensagem(): void {
+    const synth = (window as any).speechSynthesis;
+    const voices = synth.getVoices();
+
+    const vozMaria = voices.find((v: SpeechSynthesisVoice) =>
+      v.name === "Microsoft Maria - Portuguese (Brazil)"
+    );
+
+    const mensagem = new SpeechSynthesisUtterance(
+      "Você está na tela de recuperação de senha. Informe o seu e-mail cadastrado e enviaremos as instruções para criar uma nova senha."
+    );
+    mensagem.lang = "pt-BR";
+    mensagem.rate = 1;
+    mensagem.pitch = 1;
+
+    if (vozMaria) {
+      mensagem.voice = vozMaria;
+    }
+
+    synth.speak(mensagem);
+
+    mensagem.onend = () => {
+      this.ngZone.run(() => {
+      })
+    };
   }
 
   voltarLogin(){

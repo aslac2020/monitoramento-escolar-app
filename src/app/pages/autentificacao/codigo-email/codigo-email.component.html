@@ -53,9 +53,11 @@
     </form>
   </div>
   <mat-card-actions>
-    <button mat-raised-button color="primary"
-            [disabled]="formulario.invalid"
-
+    <button
+    (click)="validarCodigo()"
+    mat-raised-button
+    color="primary"
+    [disabled]="formulario.invalid"
     >Verificar Código</button>
   </mat-card-actions>
   <div class="botao-conta">

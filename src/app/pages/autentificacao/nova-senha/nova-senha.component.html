@@ -1,0 +1,80 @@
+<p-toast></p-toast>
+<mat-card class="example-card" appearance="outlined" xmlns="http://www.w3.org/1999/html">
+  <div class="container">
+    <form [formGroup]="formulario">
+      <mat-card-content>
+        <div class="info-senha">
+          <div class="icone-email">
+            <i class="material-icons" style="font-size: 20px !important; color: #1e6ef2">lock</i>
+          </div>
+          <div class="recuperar-senha">
+            <h1>Criar uma nova Senha</h1>
+            <span>Digite sua nova senha abaixo.</span>
+          </div>
+        </div>
+        <div class="campos-login">
+          <label>Nova Senha</label>
+          <div class="input-wrapper">
+            <i class="material-icons prefix-icon">lock</i>
+            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Digite sua senha" formControlName="senha" required
+              maxlength="6">
+            <button type="button" class="toggle-button" (click)="toggleHide()">
+              <i class="material-icons">
+                {{ hide ? 'visibility_off' : 'visibility' }}
+              </i>
+            </button>
+          </div>
+          <div *ngIf="senha?.touched && senha?.invalid" style="display: flex">
+            <span class="campo-erro" *ngIf="senha?.hasError('required')">
+              A senha é obrigatória
+            </span>
+            <br>
+            <span class="campo-erro" *ngIf="senha?.hasError('senha')">
+              Senha inválida
+            </span>
+          </div>
+        </div>
+        <div class="campos-login">
+          <label>Confirmar Nova Senha</label>
+          <div class="input-wrapper">
+            <i class="material-icons prefix-icon">lock</i>
+            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Digite sua senha"
+              formControlName="confirmarSenha" required maxlength="6">
+            <button type="button" class="toggle-button" (click)="toggleHide()">
+              <i class="material-icons">
+                {{ hide ? 'visibility_off' : 'visibility' }}
+              </i>
+            </button>
+          </div>
+          <div *ngIf="confirmarSenha?.touched && confirmarSenha?.invalid" style="display: flex">
+            <span class="campo-erro" *ngIf="confirmarSenha?.hasError('required')">
+              A senha é obrigatória
+            </span>
+            <br>
+            <span class="campo-erro" *ngIf="confirmarSenha?.hasError('confirmarSenha')">
+              Senha inválida
+            </span>
+          </div>
+          <div *ngIf="confirmarSenha?.touched && formulario.hasError('senhasDiferentes')" style="display: flex">
+            <span class="campo-erro">
+              As senhas não coincidem
+            </span>
+          </div>
+        </div>
+      </mat-card-content>
+    </form>
+  </div>
+  <mat-card-actions>
+    <button mat-raised-button color="primary"
+    [disabled]="formulario.invalid"
+    (click)="confirmarNovaSenha()">
+    Definir Nova Senha</button>
+  </mat-card-actions>
+  <div class="botao-conta">
+    <button mat-button color="primary"
+      style="display: flex; background-color: transparent; align-items: center;justify-content: center;"
+      (click)="voltarLogin()">
+      <i class="material-icons" style="font-size: 20px !important;">arrow_back</i>
+      Voltar ao Login</button>
+  </div>
+</mat-card>
