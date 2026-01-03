@@ -117,7 +117,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
           console.error('Erro ao buscar tipos de usuário:', err);
         },
         complete: () => {
-          this.messageService.add({ severity: 'success', summary: 'Usuario cadastrado com sucesso :)', detail: 'Message Content' });
+          this.messageService.add({ severity: 'success', summary: 'Usuario cadastrado com sucesso :)' });
           this.router.navigate(['/auth/login']);
         }
       })

@@ -47,7 +47,6 @@ export class EsqueciSenhaComponent implements OnInit, OnDestroy {
 
 
   enviarEmail(){
-
     const email = this.formulario.get('email')?.value;
 
     const param : SolicitarParam = {
@@ -64,7 +63,7 @@ export class EsqueciSenhaComponent implements OnInit, OnDestroy {
         },
         complete: () => {
           sessionStorage.setItem(this.STORAGE_KEY_TEMP, email);
-          this.messageService.add({severity: 'success', summary: 'Email Enviado com sucesso :)', detail: 'Message Content'});
+          this.messageService.add({severity: 'success', summary: 'Email Enviado com sucesso :)'});
           this.router.navigate(['/auth/envio-codigo']);
         }
       })
