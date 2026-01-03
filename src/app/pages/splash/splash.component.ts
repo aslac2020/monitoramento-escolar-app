@@ -14,12 +14,38 @@ export class SplashComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.falarMensagem();
+    this.carregarVozesEFalar();
   }
 
   ngOnDestroy() {
     const synth = (window as any).speechSynthesis;
     synth.cancel();
+  }
+
+  carregarVozesEFalar(): void {
+    const synth = (window as any).speechSynthesis;
+
+    // Força o carregamento das vozes
+    const voices = synth.getVoices();
+
+    if (voices.length > 0) {
+      this.falarMensagem();
+    } else {
+      // Aguarda evento voiceschanged
+      const onVoicesChanged = () => {
+        synth.removeEventListener('voiceschanged', onVoicesChanged);
+        this.falarMensagem();
+      };
+      synth.addEventListener('voiceschanged', onVoicesChanged);
+
+      // Fallback: tenta novamente após 100ms
+      setTimeout(() => {
+        if (synth.getVoices().length > 0) {
+          synth.removeEventListener('voiceschanged', onVoicesChanged);
+          this.falarMensagem();
+        }
+      }, 100);
+    }
   }
 
   falarMensagem(): void {
