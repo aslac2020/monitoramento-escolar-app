@@ -1,7 +1,7 @@
 export class LoginModel {
-  Token?: string;
-  Nome?: string;
-  Email?: string;
+  token?: string;
+  nome?: string;
+  email?: string;
 }
 
 export class LoginParam {

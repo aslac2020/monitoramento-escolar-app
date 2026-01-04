@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators }
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { AutenticacaoService } from "../../../services/autenticacao.service";
-import { LoginParam } from "../../../models/login";
+import { LoginModel, LoginParam } from "../../../models/login";
 import { MessageService } from 'primeng/api';
 
 @Component({
@@ -122,10 +122,13 @@ export class LoginFormularioComponent implements OnInit, OnDestroy {
       senha: this.formulario.get('senha')?.value,
     }
 
+
+
     this.subscriptions.add(
       this.autenticacaoService.login(param).subscribe({
-        next: (result) => {
-          console.log(result);
+        next: (result: LoginModel) => {
+         sessionStorage.setItem('token', result.token || '');
+         this.router.navigate(['/dashboard/responsavel']);
         }, error: (err) => {
           const mensagem = err?.error?.message || 'Não foi possível alterar a senha. Tente novamente.';
           this.messageService.add({severity: 'error', summary:  `${mensagem}`,});

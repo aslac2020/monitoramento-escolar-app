@@ -5,7 +5,7 @@ import { DashboardResponsavelComponent } from '../dashboard-responsavel/dashboar
 
 const routes: Routes = [
   {
-    path: 'painel-pais',
+    path: 'responsavel',
     component: DashboardResponsavelComponent,
   },
 
