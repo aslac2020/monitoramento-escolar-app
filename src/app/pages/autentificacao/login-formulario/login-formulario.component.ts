@@ -1,3 +1,5 @@
+import { TipoUsuarioService } from './../../../services/tipo-usuario.service';
+import { UsuarioService } from './../../../services/usuario.service';
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
@@ -5,6 +7,9 @@ import { Subscription } from "rxjs";
 import { AutenticacaoService } from "../../../services/autenticacao.service";
 import { LoginModel, LoginParam } from "../../../models/login";
 import { MessageService } from 'primeng/api';
+import { UsuarioModel } from 'src/app/models/usuario';
+import { TipoUsuarioModel } from 'src/app/models/tipoUsuario';
+import { TipoUsuarioEnum } from 'src/app/enum/tipoUsuario.enum';
 
 @Component({
   selector: 'app-login-formulario',
@@ -21,7 +26,10 @@ export class LoginFormularioComponent implements OnInit, OnDestroy {
     private router: Router,
     private messageService: MessageService,
     private ngZone: NgZone,
-    private autenticacaoService: AutenticacaoService) { }
+    private autenticacaoService: AutenticacaoService,
+    private usuarioService: UsuarioService,
+    private TipoUsuarioService: TipoUsuarioService
+  ) { }
 
 
   get email() {
@@ -122,13 +130,12 @@ export class LoginFormularioComponent implements OnInit, OnDestroy {
       senha: this.formulario.get('senha')?.value,
     }
 
-
-
     this.subscriptions.add(
       this.autenticacaoService.login(param).subscribe({
         next: (result: LoginModel) => {
          sessionStorage.setItem('token', result.token || '');
-         this.router.navigate(['/dashboard/responsavel']);
+          this.buscarTipoUsuarioERedirecionar();
+
         }, error: (err) => {
           const mensagem = err?.error?.message || 'Não foi possível alterar a senha. Tente novamente.';
           this.messageService.add({severity: 'error', summary:  `${mensagem}`,});
@@ -138,6 +145,36 @@ export class LoginFormularioComponent implements OnInit, OnDestroy {
         }
       })
     )
+  }
+
+  buscarTipoUsuarioERedirecionar(): void {
+
+    const email = this.formulario.get('email')?.value;
+
+    this.subscriptions.add(
+      this.usuarioService.buscarUsuarioPeloEmail(email).subscribe({
+        next: (usuario: UsuarioModel) => {
+          this.TipoUsuarioService.buscarTiposUsuarios().subscribe({
+            next: (tipoUsuario: TipoUsuarioModel[]) => {
+              const tipoUsuarioResultado = tipoUsuario.find(t => t.id === usuario.idTipoUsuario);
+              this.redirecionarDashboardTipoUsuario(tipoUsuarioResultado);
+            },
+            error: (err) => {
+              const mensagem = err?.error?.message || 'Não foi possível buscar o tipo de usuário. Tente novamente.';
+              this.messageService.add({severity: 'error', summary:  `${mensagem}`,});
+            }
+          })
+        }
+      })
+    )
+  }
+
+  redirecionarDashboardTipoUsuario(tipoUsuario: TipoUsuarioModel | any): void {
+    if (tipoUsuario.codTipoUsuario === TipoUsuarioEnum.RESPONSAVEL) {
+        this.router.navigate(['/dashboard/responsavel']);
+      return;
+    }
+
   }
 
 
