@@ -5,4 +5,5 @@ export class UsuarioModel {
   senha!: string;
   ativo?: boolean = true;
   idTipoUsuario!: number;
+  id?: number;
 }

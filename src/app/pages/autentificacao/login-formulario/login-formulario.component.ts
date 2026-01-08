@@ -157,7 +157,7 @@ export class LoginFormularioComponent implements OnInit, OnDestroy {
           this.TipoUsuarioService.buscarTiposUsuarios().subscribe({
             next: (tipoUsuario: TipoUsuarioModel[]) => {
               const tipoUsuarioResultado = tipoUsuario.find(t => t.id === usuario.idTipoUsuario);
-              this.redirecionarDashboardTipoUsuario(tipoUsuarioResultado);
+              this.redirecionarDashboardTipoUsuario(tipoUsuarioResultado, usuario);
             },
             error: (err) => {
               const mensagem = err?.error?.message || 'Não foi possível buscar o tipo de usuário. Tente novamente.';
@@ -169,9 +169,9 @@ export class LoginFormularioComponent implements OnInit, OnDestroy {
     )
   }
 
-  redirecionarDashboardTipoUsuario(tipoUsuario: TipoUsuarioModel | any): void {
+  redirecionarDashboardTipoUsuario(tipoUsuario: TipoUsuarioModel | any, usuario: UsuarioModel): void {
     if (tipoUsuario.codTipoUsuario === TipoUsuarioEnum.RESPONSAVEL) {
-        this.router.navigate(['/dashboard/responsavel']);
+        this.router.navigate([`/dashboard/responsavel/${usuario.id}`]);
       return;
     }
 
