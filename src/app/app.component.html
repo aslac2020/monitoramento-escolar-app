@@ -1,2 +1,5 @@
 <app-splash *ngIf="mostrarSplash"></app-splash>
-<app-cabecalho *ngIf="mostrarCabecalho"></app-cabecalho>
+<app-cabecalho *ngIf="mostrarCabecalho">
+  <router-outlet></router-outlet>
+</app-cabecalho>
+<router-outlet *ngIf="!mostrarSplash && !mostrarCabecalho"></router-outlet>
