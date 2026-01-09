@@ -16,9 +16,15 @@ export class UsuarioService {
     return this.http.post(`${environment.baseURL}/Usuario/register`, param);
   }
 
-    public buscarUsuarioPeloEmail(email: any): Observable<any> {
+  public buscarUsuarioPeloEmail(email: any): Observable<any> {
     const headers = this.criarHeadersComAutorizacao();
     const url = `${environment.baseURL}/Usuario/email?email=${email}`;
+    return this.http.get(url, { headers }).pipe(map((data) => data));
+  }
+
+    public buscarUsuarioPeloId(id: any): Observable<any> {
+    const headers = this.criarHeadersComAutorizacao();
+    const url = `${environment.baseURL}/Usuario/${id}`;
     return this.http.get(url, { headers }).pipe(map((data) => data));
   }
 

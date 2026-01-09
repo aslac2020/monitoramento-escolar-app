@@ -2,6 +2,7 @@ import { DashboardResponsavelComponent } from './../../dashboard-responsavel/das
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from '../../routing/dashboard-routing.module';
+import { MaterialModule } from 'src/app/shared/material/material.module';
 
 
 
@@ -11,6 +12,7 @@ import { DashboardRoutingModule } from '../../routing/dashboard-routing.module';
   ],
   imports: [
     CommonModule,
+    MaterialModule,
     DashboardRoutingModule
   ]
 })

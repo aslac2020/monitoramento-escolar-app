@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { UsuarioService } from '../../../services/usuario.service';
 
 @Component({
   selector: 'app-dashboard-responsavel',
@@ -8,21 +9,35 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./dashboard-responsavel.component.scss']
 })
 export class DashboardResponsavelComponent implements OnInit, OnDestroy {
-idUsuario!: number;
+  idUsuario!: number;
+  nomeUsuario!: string;
 
-
-private subscriptions = new Subscription();
+  private subscriptions = new Subscription();
 
   ngOnInit(): void {
-    console.log(this.router.snapshot.params);
     this.idUsuario = this.router.snapshot.params['id'];
-    console.log(this.idUsuario);
+    this.consultarUsuario();
   }
 
-  constructor(private readonly router: ActivatedRoute) {
+  constructor(
+    private readonly router: ActivatedRoute,
+    private usuarioService: UsuarioService) {
   }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  consultarUsuario(){
+    this.subscriptions.add(
+      this.usuarioService.buscarUsuarioPeloId(this.idUsuario).subscribe(
+        (usuario) => {
+          this.nomeUsuario = usuario.nome;
+        },
+        (error) => {
+          console.error('Erro ao buscar usuário:', error);
+        }
+      )
+    );
   }
 
 

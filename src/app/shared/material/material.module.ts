@@ -7,6 +7,9 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import { DropdownModule } from 'primeng/dropdown';
 import { ToastModule } from 'primeng/toast';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button'
+import { BadgeModule } from 'primeng/badge';
 
 
 
@@ -20,7 +23,12 @@ import { ToastModule } from 'primeng/toast';
     MatButtonModule,
     MatInputModule,
     DropdownModule,
-    ToastModule
+    ToastModule,
+    CardModule,
+    ButtonModule,
+    BadgeModule
+
+
   ],
   exports: [
     MatIconModule,
@@ -29,7 +37,10 @@ import { ToastModule } from 'primeng/toast';
     MatButtonModule,
     MatInputModule,
     DropdownModule,
-    ToastModule
+    ToastModule,
+    CardModule,
+    ButtonModule,
+    BadgeModule
   ]
 })
 export class MaterialModule { }
